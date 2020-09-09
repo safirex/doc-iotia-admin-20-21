@@ -1,0 +1,164 @@
+﻿TP shell BASH #1
+
+
+Attention, tout au long de ces exercices, vous devez respecter la casse (majuscules et minuscules). Si l’invite de commande est $ alors vous êtes connecté comme simple utilisateur (msyska dans les exemples), si l’invite de commande est # vous êtes connecté en tant que root.
+
+
+Vous devez tester les commandes bash sur votre terminal puis insérer vos réponses dans le texte de l’énoncé.
+
+
+À la fin du TP, envoyez par mail votre réponse à 
+Michel.SYSKA@unice.fr
+avec comme sujet
+[LP SIL ADMIN] Bash TP1 de Prénom1 NOM1 et Prénom2 NOM2
+et comme pièce jointe les réponses dans
+TP1_de_Prenom1_NOM1_et_Prénom2_NOM2.txt
+	Exercice 1 Chemins, répertoires et fichiers
+
+
+1.1) Préparation
+On va charger une archive pour avoir un “bac à sable” de fichiers. Taper les commandes suivantes.
+
+
+$ cd
+$ wget http://ftp.gnu.org/gnu/binutils/binutils-2.25.1.tar.gz 
+
+
+au besoin passer root et installer wget
+$ su
+Password:
+# yum install wget
+…
+^D
+
+
+Ensuite on va extraire le contenu de l’archive dans le répertoire ADMIN.
+
+
+$ cd
+$ mkdir ADMIN
+$ mv binutils-2.25.1.tar.gz ADMIN/
+$ cd ADMIN/
+$ ls -l
+total 32108
+-rw-rw-r--. 1 msyska msyska 32877147 Jul 21 17:00 binutils-2.25.1.tar.gz
+$ tar zxf binutils-2.25.1.tar.gz
+$ ls -l
+total 32112
+drwxrwxr-x. 17 msyska msyska     4096 Sep 11 09:35 binutils-2.25.1
+-rw-rw-r--.  1 msyska msyska 32877147 Jul 21 17:00 binutils-2.25.1.tar.gz
+$
+
+
+1.2) Commandes de base
+
+
+1. À partir de la position courante (/home/msyska/ADMIN), créer le répertoire tmp
+2. Donner la commande qui affiche la position courante
+3. Afficher avec ls le contenu de binutils-2.25.1/config
+4. Afficher avec ls tous les fichiers de ce répertoire dont l’extension est .m4
+5. Afficher avec ls tous les fichiers de ce répertoire dont le nom commence par g
+6. Afficher avec ls tous les fichiers de ce répertoire dont le nom commence par g et termine par .m4
+7. Afficher avec ls tous les fichiers de ce répertoire et de ses sous-répertoires
+8. Donner la taille du fichier binutils-2.25.1/config/elf.m4
+   1. en lisant la sortie de la commande ls avec l’option d’affichage long
+   2. avec la commande stat et l’option ad hoc (chercher dans le man)
+1. Donner les commandes pour copier le fichier texinfo.tex dans tmp
+   1. depuis la position courante (chemins relatifs)
+   2. depuis l’emplacement du fichier (chemins relatifs)
+   3. depuis le répertoire tmp (chemins relatifs)
+   4. depuis n’importe où (chemins absolus)
+1. Donner la commande pour déplacer le répertoire pdp11 dans tmp
+   1. depuis la position courante (chemins relatifs)
+   2. depuis l’emplacement du répertoire (chemins relatifs)
+   3. depuis le répertoire tmp (chemins relatifs)
+   4. depuis n’importe où (chemins absolus)
+1. Donner la commande pour copier le répertoire gas/testsuite dans tmp
+   1. depuis la position courante (chemins relatifs)
+   2. depuis l’emplacement du répertoire (chemins relatifs)
+   3. depuis le répertoire tmp (chemins relatifs)
+   4. depuis n’importe où (chemins absolus)
+
+
+1.3) Gestion simple d’archives
+
+
+Donner la suite de commandes qui permet de:
+
+
+1. Se positionner dans /home/msyska/ADMIN
+2. Créer l’archive tmp.tar.gz qui contient toute l’arborescence de racine tmp
+3. Créer l’archive tmp.tar.bz2 qui contient toute l’arborescence de racine tmp
+4. Créer l’archive tmp.tar.xz qui contient toute l’arborescence de racine tmp
+5. Effacer toute l’arborescence tmp
+6. Copier tmp.tar.gz dans /tmp 
+7. Restaurer l’arborescence tmp :
+   1. depuis la position courante /home/msyska/ADMIN
+   2. depuis /tmp avec la copie de tmp.tar.gz 
+Exercice 2 Contenu des fichiers
+
+
+Se positionner dans  /home/msyska/ADMIN/tmp et charger le fichier bash.txt
+$ curl -o bash.txt http://www.gnu.org/software/bash/manual/bash.txt
+
+
+1. Afficher sur le terminal le contenu de bash.txt
+2. Donner la commande qui affiche le nombre de lignes de bash.txt
+3. Donner la commande qui affiche les 20 premières lignes de bash.txt
+4. Donner la commande qui affiche les 20 dernières lignes de bash.txt
+5. Donner une commande qui affiche bash.txt page par page
+6. Afficher le contenu de /etc/passwd en numérotant les lignes
+7. Afficher le contenu de /etc/passwd de la dernière à la première ligne
+8. Quelle est la taille du fichier bash.txt?
+9. Compresser bash.txt avec gzip
+10. Quelle est la taille du fichier bash.txt.gz?
+11. Afficher le contenu lisible du fichier bash.txt.gz
+12. Restaurer le fichier bash.txt non compressé
+
+
+Exercice 3 Permissions des fichiers
+A priori, à ce stade du TP, le résultat de la commande ls -l dans votre répertoire tmp devrait être comme celui là:
+
+
+$ ls -l
+total 760
+-rw-rw-r--. 1 msyska msyska 468489 Sep 11 10:27 bash.txt
+drwxrwxr-x. 2 msyska msyska   4096 Sep 11 09:35 pdp11
+drwxrwxr-x. 5 msyska msyska   4096 Sep 11 10:06 testsuite
+-rw-rw-r--. 1 msyska msyska 295126 Sep 11 10:03 texinfo.tex
+
+
+Donner la suite de commandes chmod qui permet d’obtenir le résultat suivant:
+$ ls -l
+total 760
+-rw-------. 1 msyska msyska 468489 Sep 11 10:27 bash.txt
+drwxr-xr-x. 2 msyska msyska   4096 Sep 11 09:35 pdp11
+drwxr-x---. 5 msyska msyska   4096 Sep 11 10:06 testsuite
+-rw-r-----. 1 msyska msyska 295126 Sep 11 10:03 texinfo.tex
+$
+
+
+Exercice 4 Commande find
+
+
+Donner la commande find qui permet de donner la liste des fichiers (placez vous dans le répertoire tmp et faites toutes les modifications nécessaires pour faire les tests)
+
+
+1. dont la taille est supérieure à 1 Mo
+2. dont la taille est supérieure à N Mo (N est une variable du shell courant)
+3. dont la taille est comprise entre N et M Mo (N et M sont des variables du shell courant)
+4. dont la date de dernière modification est inférieure à 2 jours
+5. qui sont exécutables et contenus dans le répertoire courant ou ses sous-répertoires à profondeur 1 au plus
+6. dont le nom (basename) contient MOT en mode “case insensitive” (MOT est une variable du shell courant)
+7. dont le chemin (dirname) contient MOT (MOT est une variable du shell courant)
+8. dont les permissions sont 777
+9. dont la dernière modification date entre 3 et 5 jours en arrière
+10. modifiés après FICHIER (FICHIER est une variable du shell courant)
+
+
+
+
+Exercice 5 Redirections (plus tard)
+
+
+1. Afficher le contenu de /etc/passwd de la dernière à la première ligne en les numérotant
