@@ -1,0 +1,113 @@
+﻿TP shell BASH #2
+
+
+Attention, tout au long de ces exercices, vous devez respecter la casse (majuscules et minuscules). Si l’invite de commande est $ alors vous êtes connecté comme simple utilisateur (msyska dans les exemples), si l’invite de commande est # vous êtes connecté en tant que root.
+
+
+Vous devez tester les commandes bash sur votre terminal puis insérer vos réponses dans le texte de l’énoncé.
+
+
+À la fin du TP, envoyez par mail votre réponse à 
+Michel.SYSKA@unice.fr
+avec comme sujet
+[LP SIL ADMIN] Bash TP2 de Prénom1 NOM1 et Prénom2 NOM2
+et en pièce jointe:
+TP2_de_Prenom1_NOM1_et_Prenom2_NOM2.txt
+	Exercice 1 Commande find et option -exec
+
+
+1.1) Préparation (refaire la même manipulation que lors du TP1)
+On va charger une archive pour avoir un “bac à sable” de fichiers. Taper les commandes suivantes.
+
+
+$ cd
+$ wget http://ftp.gnu.org/gnu/binutils/binutils-2.25.1.tar.gz 
+
+
+au besoin passer root et installer wget
+$ su
+Password:
+# yum install wget
+…
+^D
+
+
+Ensuite on va extraire le contenu de l’archive dans le répertoire ADMIN.
+
+
+$ cd
+$ mkdir ADMIN
+$ mv binutils-2.25.1.tar.gz ADMIN/
+$ cd ADMIN/
+$ ls -l
+total 32108
+-rw-rw-r--. 1 msyska msyska 32877147 Jul 21 17:00 binutils-2.25.1.tar.gz
+$ tar zxf binutils-2.25.1.tar.gz
+$ ls -l
+total 32112
+drwxrwxr-x. 17 msyska msyska     4096 Sep 11 09:35 binutils-2.25.1
+-rw-rw-r--.  1 msyska msyska 32877147 Jul 21 17:00 binutils-2.25.1.tar.gz
+$
+
+
+1.2) find -exec
+
+
+1. changer les permissions de tous les répertoires sous ADMIN en mode 755
+2. changer les permissions de tous les fichiers sous ADMIN en mode 644
+3. créer l’archive de nom $HOME/ADMIN/C.tar.gz de tous les fichiers dont le nom termine par ‘.c’ (vérifier le résultat en restaurant l’archive dans ADMIN/tmp)
+
+
+Exercice 2 Redirections simples
+
+
+Dans cet exercice on utilise encore les fichiers de ~/ADMIN et le répertoire courant est ~/ADMIN.
+
+
+1. créer le fichier C_all.lst qui contient tous les chemins depuis ADMIN vers tous les fichiers dont le nom termine par ‘.c’
+2. compter tous les chemins depuis ADMIN vers tous les fichiers dont le nom termine par ‘.c’
+3. compter tous les fichiers (basename) depuis ADMIN dont le nom termine par ‘.c’
+4. créer le fichier C_dir.lst qui contient tous les répertoires depuis ADMIN qui contiennent des fichiers dont le nom termine par ‘.c’ (utiliser la commande dirname)
+5. compter tous les répertoires depuis ADMIN qui contiennent des fichiers dont le nom termine par ‘.c’ (utiliser la commande dirname)
+6. écrire dans le fichier ~/ADMIN/resultats tous les calculs décrits dans le fichier  ~/ADMIN/calculs (à télécharger)
+7. compter le nombre de lignes contenant la chaîne 'Invalid user' du fichier secure-20150913 (à télécharger)
+8. afficher la liste des noms de users correspondant (chaîne suivant 'Invalid user')
+9. compter le nombre de noms de users différents
+10. découper le fichier GROSDATA  (à télécharger) en morceaux de 100 KiB avec la commande split
+11. coller bout à bout tous les morceaux dans un nouveau fichier BIGDATA
+12. montrer avec cmp que les deux fichiers sont identiques
+
+
+Exercice 3 Processus
+
+
+Donner toutes les commandes qui permettent de :
+
+
+1. afficher tous les processus du terminal/shell courant
+2. afficher tous les processus de l’utilisateur courant
+3. afficher tous les processus
+4. créer un processus de durée 1000 s avec la commande sleep
+5. terminer ce processus dans le terminal avec un contrôle clavier
+6. relancer le processus et le terminer avec un signal (commande kill) depuis un second terminal
+7. relancer le processus, le stopper avec un contrôle clavier et le rendre à nouveau actif avec un signal depuis un second terminal
+8. mettre le processus en background avec un contrôle clavier et la commande bg
+9. lancer en background un second processus de durée 1000 s avec la commande sleep
+10. afficher les jobs courant
+11. rendre à nouveau le premier processus actif au premier plan
+12. terminer les deux processus avec un signal
+
+
+Exercice 4 ER (plus tard)
+
+
+On se positionne dans ADMIN et on traite le fichier secure-20150913 . Donner toutes les commandes grep qui permettent de filtrer (et compter) les lignes qui :
+
+
+1. contiennent ‘POSSIBLE BREAK-IN ATTEMPT!’
+2. ne contiennent pas ‘POSSIBLE BREAK-IN ATTEMPT!’
+3. commencent par ‘Sep 11’
+4. terminent par ‘104’
+5. contiennent ‘sshd’ au moins une fois
+6. contiennent ‘sshd’ au moins deux fois
+7. contiennent ‘sshd’ exactement une fois
